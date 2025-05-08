@@ -1,0 +1,30 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #0f3d81;
+  --font-mono: Consolas, "Andale Mono", Courier;
+  --text-size: 1rem;
+}
+
+.dark {
+  --color-bg: #272822;
+  --color-text: #f8f8f2;
+}
+
+html.dark body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition;
+  }
+
+  .btn-outline {
+    @apply px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition;
+  }
+}
