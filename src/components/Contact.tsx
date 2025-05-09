@@ -49,11 +49,14 @@ export default function Contact() {
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (error: any) {
-      // Using error: any to catch potential error object with message
+    } catch (error: unknown) { // Use unknown as a safer default
+      let errorMessage = 'Something went wrong. Please try again later.';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
       setSubmitStatus({
         success: false,
-        message: error.message || 'Something went wrong. Please try again later.',
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);
@@ -140,8 +143,7 @@ export default function Contact() {
           </div>
 
           <form onSubmit={handleSubmit} className="animate-on-scroll card p-6 shadow-lg">
-            {submitStatus.message && (
-              <div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {submitStatus.message && (<div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                 {submitStatus.message}
               </div>
             )}

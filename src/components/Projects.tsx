@@ -27,8 +27,12 @@ export default function Projects() {
 
         const data: GitHubRepo[] = await res.json();
         setRepos(data);
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
+      } catch (err: unknown) { // Use unknown as a safer default
+        let errorMessage = 'Something went wrong';
+        if (err instanceof Error) {
+          errorMessage = err.message;
+        }
+        setError(errorMessage);
         console.error('Error fetching repositories:', err);
       } finally {
         setLoading(false);
