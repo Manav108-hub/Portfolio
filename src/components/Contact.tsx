@@ -2,14 +2,25 @@
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface SubmitStatus {
+  success: boolean;
+  message: string;
+}
+
 export default function Contact() {
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<FormState>({
     name: '',
     email: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState({ success: false, message: '' });
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ success: false, message: '' });
   const contactRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: { target: { name: string; value: string; }; }) => {
@@ -20,35 +31,35 @@ export default function Contact() {
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     try {
       // In a real implementation, you would send the form data to your backend
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       setSubmitStatus({
         success: true,
-        message: 'Message sent successfully! I&apos;ll get back to you soon.',
+        message: 'Message sent successfully! I\'ll get back to you soon.',
       });
-      
+
       // Reset form
       setFormState({ name: '', email: '', message: '' });
-      
+
       // Reset status after some time
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (_error) {
-      // Using underscore prefix to indicate intentionally unused variable
+    } catch (error: any) {
+      // Using error: any to catch potential error object with message
       setSubmitStatus({
         success: false,
-        message: 'Something went wrong. Please try again later.',
+        message: error.message || 'Something went wrong. Please try again later.',
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -58,19 +69,19 @@ export default function Contact() {
         }
       });
     }, { threshold: 0.1 });
-    
+
     if (contactRef.current) {
       const elements = contactRef.current.querySelectorAll<HTMLElement>('.animate-on-scroll');
       elements.forEach((el: HTMLElement, index: number) => {
         // Cast el to HTMLElement so TypeScript allows .style access
         const element = el as HTMLElement;
-        
+
         element.classList.add('opacity-0', 'transition-all', 'duration-700');
         element.style.transitionDelay = `${index * 100}ms`;
         observer.observe(element);
       });
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -78,14 +89,14 @@ export default function Contact() {
     <section id="contact" ref={contactRef} className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="section-container">
         <h2 className="section-title animate-on-scroll">Get In Touch</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
             <p className="text-lg mb-6">
-              I&apos;m currently looking for new opportunities to apply my cloud and development skills. 
+              I&apos;m currently looking for new opportunities to apply my cloud and development skills.&nbsp;
               Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
-            
+
             <div className="space-y-4 mt-8">
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
@@ -99,7 +110,7 @@ export default function Contact() {
                   <Link href="mailto:manavadwani86@gmail.com" className="text-blue-600 dark:text-blue-400">manavadwani86@gmail.com</Link>
                 </div>
               </div>
-              
+
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -113,7 +124,7 @@ export default function Contact() {
                   <Link href="https://www.linkedin.com/in/manav-adwani-1146a221b/" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">linkedin.com/in/manav-adwani-1146a221b/</Link>
                 </div>
               </div>
-              
+
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -127,14 +138,14 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="animate-on-scroll card p-6 shadow-lg">
             {submitStatus.message && (
               <div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                 {submitStatus.message}
               </div>
             )}
-            
+
             <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
               <input
@@ -147,7 +158,7 @@ export default function Contact() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
               <input
@@ -160,7 +171,7 @@ export default function Contact() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
               <textarea
@@ -173,7 +184,7 @@ export default function Contact() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
               ></textarea>
             </div>
-            
+
             <button
               type="submit"
               disabled={isSubmitting}

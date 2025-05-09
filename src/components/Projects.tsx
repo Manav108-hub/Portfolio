@@ -1,8 +1,15 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+}
+
 export default function Projects() {
-  const [repos, setRepos] = useState<any[]>([]);
+  const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -18,7 +25,7 @@ export default function Projects() {
           throw new Error('Failed to fetch repositories');
         }
 
-        const data = await res.json();
+        const data: GitHubRepo[] = await res.json();
         setRepos(data);
       } catch (err: any) {
         setError(err.message || 'Something went wrong');
@@ -58,9 +65,9 @@ export default function Projects() {
   }, [repos]);
 
   // Placeholder repos in case of error or while loading
-  const placeholderRepos = loading
+  const placeholderRepos: GitHubRepo[] = loading
     ? Array(4).fill({
-        id: 'placeholder',
+        id: 0,
         name: '',
         description: '',
         html_url: '#',
