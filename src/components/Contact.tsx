@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Contact() {
@@ -11,7 +12,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState({ success: false, message: '' });
   const contactRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: string; value: string; }; }) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
@@ -27,7 +28,7 @@ export default function Contact() {
       
       setSubmitStatus({
         success: true,
-        message: 'Message sent successfully! I\'ll get back to you soon.',
+        message: 'Message sent successfully! I&apos;ll get back to you soon.',
       });
       
       // Reset form
@@ -37,7 +38,8 @@ export default function Contact() {
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (error) {
+    } catch (_error) {
+      // Using underscore prefix to indicate intentionally unused variable
       setSubmitStatus({
         success: false,
         message: 'Something went wrong. Please try again later.',
@@ -57,17 +59,17 @@ export default function Contact() {
       });
     }, { threshold: 0.1 });
     
-if (contactRef.current) {
-  const elements = contactRef.current.querySelectorAll<HTMLElement>('.animate-on-scroll');
-  elements.forEach((el: HTMLElement, index: number) => {
-    // Cast el to HTMLElement so TypeScript allows .style access
-    const element = el as HTMLElement;
-    
-    element.classList.add('opacity-0', 'transition-all', 'duration-700');
-    element.style.transitionDelay = `${index * 100}ms`;
-    observer.observe(element);
-  });
-}
+    if (contactRef.current) {
+      const elements = contactRef.current.querySelectorAll<HTMLElement>('.animate-on-scroll');
+      elements.forEach((el: HTMLElement, index: number) => {
+        // Cast el to HTMLElement so TypeScript allows .style access
+        const element = el as HTMLElement;
+        
+        element.classList.add('opacity-0', 'transition-all', 'duration-700');
+        element.style.transitionDelay = `${index * 100}ms`;
+        observer.observe(element);
+      });
+    }
     
     return () => observer.disconnect();
   }, []);
@@ -80,8 +82,8 @@ if (contactRef.current) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
             <p className="text-lg mb-6">
-              I'm currently looking for new opportunities to apply my cloud and development skills. 
-              Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              I&apos;m currently looking for new opportunities to apply my cloud and development skills. 
+              Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
             
             <div className="space-y-4 mt-8">
@@ -94,7 +96,7 @@ if (contactRef.current) {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">Email</h3>
-                  <a href="mailto:your.email@example.com" className="text-blue-600 dark:text-blue-400">your.email@example.com</a>
+                  <Link href="mailto:manavadwani86@gmail.com" className="text-blue-600 dark:text-blue-400">manavadwani86@gmail.com</Link>
                 </div>
               </div>
               
@@ -108,7 +110,7 @@ if (contactRef.current) {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">LinkedIn</h3>
-                  <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">linkedin.com/in/yourusername</a>
+                  <Link href="https://www.linkedin.com/in/manav-adwani-1146a221b/" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">linkedin.com/in/manav-adwani-1146a221b/</Link>
                 </div>
               </div>
               
@@ -120,7 +122,7 @@ if (contactRef.current) {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">GitHub</h3>
-                  <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">github.com/yourusername</a>
+                  <Link href="https://github.com/manav108-hub" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">github.com/manav108-hub</Link>
                 </div>
               </div>
             </div>
