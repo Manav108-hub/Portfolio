@@ -2,6 +2,7 @@ import '@/app/globals.css';
 import ThemeToggle from '@/components/ThemeToggle';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 // Font configuration
 const inter = Inter({
@@ -25,12 +26,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="fixed top-0 left-0 w-full z-50 bg-gray-50 bg-opacity-90 dark:bg-gray-950 dark:bg-opacity-90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
           <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-between items-center">
-              <a href="/" className="text-xl font-bold text-gray-900 dark:text-gray-50">MA.</a>
+              <Link href="/" className="text-xl font-bold text-gray-900 dark:text-gray-50">MA.</Link>
               <ul className="hidden md:flex space-x-8">
-                <li><a href="#" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Home</a></li>
-                <li><a href="#about" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">About</a></li>
-                <li><a href="#projects" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Projects</a></li>
-                <li><a href="#contact" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Contact</a></li>
+                <li><Link href="#" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Home</Link></li>
+                <li><Link href="#about" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">About</Link></li>
+                <li><Link href="#projects" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Projects</Link></li>
+                <li><Link href="#contact" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Contact</Link></li>
               </ul>
               <div className="flex items-center gap-4">
                 <ThemeToggle />

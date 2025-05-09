@@ -48,7 +48,7 @@ export default function About() {
     });
 
     const skillObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const target = entry.target as HTMLElement;
           const width = target.getAttribute('data-width');
@@ -80,12 +80,12 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
             <p className="text-lg mb-6 leading-relaxed">
-              I'm a final-year BTech student specializing in Cloud Computing with a passion for building scalable and resilient systems.
+              I&apos;m a final-year BTech student specializing in Cloud Computing with a passion for building scalable and resilient systems.
               My expertise lies in AWS, containerization, and modern web development frameworks.
             </p>
             <p className="text-lg mb-6 leading-relaxed">
               I enjoy solving complex problems and building systems that can scale efficiently.
-              With hands-on experience in cloud services and DevOps practices, I'm prepared to tackle
+              With hands-on experience in cloud services and DevOps practices, I&apos;m prepared to tackle
               the challenges of modern infrastructure and application development.
             </p>
 
