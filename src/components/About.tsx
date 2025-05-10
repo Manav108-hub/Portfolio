@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
+
 export default function About() {
   const aboutRef = useRef<HTMLDivElement>(null);
 

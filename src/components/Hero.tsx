@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import profilePic from '../../public/manav_profile.jpg'; // Import your image
+import { Download } from 'lucide-react'
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -51,7 +52,17 @@ export default function Hero() {
           <Link href="#contact" className="btn-outline">
             Contact Me
           </Link>
+          <Link
+            href="https://drive.usercontent.google.com/download?id=1AkF10ym7Ptm2uJGuQ2qropPF-cL6Xt9g&export=download&authuser=0&confirm=t&uuid=3642788a-efef-411e-b7fe-1de5c6d03f4a&at=ALoNOgk37gtl_VYYu9tYwg_zSrjQ:174688632"
+            className="btn-outline"
+            download="Manav_Adwani_Resume.pdf"
+            style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} // For left alignment
+          >
+            <Download className="w-5 h-5 mr-2" style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} /> {/* Smaller icon */}
+            <span style={{ fontSize: '0.8rem' }}>Download Resume</span> {/* Smaller text */}
+          </Link>
         </div>
+
 
         <div className="mt-12 flex gap-6 animate-on-scroll" style={{ animationDelay: '0.6s' }}>
           <Link href="https://github.com/manav108-hub" target="_blank" rel="noopener noreferrer"
