@@ -162,7 +162,7 @@ export default function Projects() {
 
         <div className="mt-12 text-center animate-on-scroll">
           <a
-            href="https://github.com/yourusername "
+            href="https://github.com/manav108-hub"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
