@@ -159,7 +159,7 @@
 
 /* Hero section gradient background */
 .hero-bg {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(79, 70, 229, 0.1) 100%);
+  background: var(--color-gray-950);
 }
 
 /* Theme toggle styling */

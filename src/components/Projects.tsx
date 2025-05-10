@@ -81,7 +81,7 @@ export default function Projects() {
   const displayRepos = repos.length > 0 ? repos : placeholderRepos;
 
   return (
-    <section id="projects" ref={projectsRef} className="py-20 bg-white dark:bg-gray-800">
+    <section id="projects" ref={projectsRef} className="py-20 bg-white dark:bg-gray-950">
       <div className="section-container">
         <h2 className="section-title animate-on-scroll">Projects</h2>
 

@@ -89,7 +89,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <section id="contact" ref={contactRef} className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="contact" ref={contactRef} className="py-20 bg-gray-50 dark:bg-gray-950">
       <div className="section-container">
         <h2 className="section-title animate-on-scroll">Get In Touch</h2>
 

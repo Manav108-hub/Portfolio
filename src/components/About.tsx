@@ -73,7 +73,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={aboutRef} className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="about" ref={aboutRef} className="py-20 bg-gray-50 dark:bg-gray-950">
       <div className="section-container">
         <h2 className="section-title animate-on-scroll">About Me</h2>
 
