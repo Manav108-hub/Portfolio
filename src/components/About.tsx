@@ -16,6 +16,7 @@ export default function About() {
 
   const skills = [
     { name: "AWS Cloud", level: 90 },
+    { name: "Next JS", level:80 },
     { name: "Docker", level: 85 },
     { name: "Kubernetes", level: 80 },
     { name: "React", level: 85 },
