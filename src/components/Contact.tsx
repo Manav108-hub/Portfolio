@@ -46,7 +46,7 @@ export default function ContactForm() {
       if (response.ok) {
         setSubmitStatus({
           success: true,
-          message: 'Message sent successfully! I&aposll get back to you soon.',
+          message: "Message sent successfully! I'll get back to you soon.",
         });
         setFormState({ name: '', email: '', message: '' });
       } else {
@@ -60,7 +60,7 @@ export default function ContactForm() {
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (_error) {
+    } catch {
       setSubmitStatus({
         success: false,
         message: 'Network error. Please try again later.',
@@ -100,8 +100,8 @@ export default function ContactForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
             <p className="text-lg mb-6">
-              I'm currently looking for new opportunities to apply my cloud and development skills.
-              Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              I&apos;m currently looking for new opportunities to apply my cloud and development skills.
+              Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
 
             <div className="space-y-4 mt-8">
