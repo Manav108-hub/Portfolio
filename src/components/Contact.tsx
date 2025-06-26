@@ -46,7 +46,7 @@ export default function ContactForm() {
       if (response.ok) {
         setSubmitStatus({
           success: true,
-          message: 'Message sent successfully! I\'ll get back to you soon.',
+          message: 'Message sent successfully! I&aposll get back to you soon.',
         });
         setFormState({ name: '', email: '', message: '' });
       } else {
@@ -60,7 +60,7 @@ export default function ContactForm() {
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus({
         success: false,
         message: 'Network error. Please try again later.',
