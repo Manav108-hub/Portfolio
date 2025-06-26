@@ -13,7 +13,7 @@ interface SubmitStatus {
   message: string;
 }
 
-export default function Contact() {
+export default function ContactForm() {
   const [formState, setFormState] = useState<FormState>({
     name: '',
     email: '',
@@ -23,40 +23,47 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ success: false, message: '' });
   const contactRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (e: { target: { name: string; value: string; }; }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-      // In a real implementation, you would send the form data to your backend
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      setSubmitStatus({
-        success: true,
-        message: 'Message sent successfully! I\'ll get back to you soon.',
+      const response = await fetch('/api/github', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
       });
 
-      // Reset form
-      setFormState({ name: '', email: '', message: '' });
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          message: 'Message sent successfully! I\'ll get back to you soon.',
+        });
+        setFormState({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus({
+          success: false,
+          message: data.error || 'Something went wrong. Please try again later.',
+        });
+      }
 
       // Reset status after some time
       setTimeout(() => {
         setSubmitStatus({ success: false, message: '' });
       }, 5000);
-    } catch (error: unknown) { // Use unknown as a safer default
-      let errorMessage = 'Something went wrong. Please try again later.';
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
+    } catch (error) {
       setSubmitStatus({
         success: false,
-        message: errorMessage,
+        message: 'Network error. Please try again later.',
       });
     } finally {
       setIsSubmitting(false);
@@ -76,12 +83,9 @@ export default function Contact() {
     if (contactRef.current) {
       const elements = contactRef.current.querySelectorAll<HTMLElement>('.animate-on-scroll');
       elements.forEach((el: HTMLElement, index: number) => {
-        // Cast el to HTMLElement so TypeScript allows .style access
-        const element = el as HTMLElement;
-
-        element.classList.add('opacity-0', 'transition-all', 'duration-700');
-        element.style.transitionDelay = `${index * 100}ms`;
-        observer.observe(element);
+        el.classList.add('opacity-0', 'transition-all', 'duration-700');
+        el.style.transitionDelay = `${index * 100}ms`;
+        observer.observe(el);
       });
     }
 
@@ -91,13 +95,13 @@ export default function Contact() {
   return (
     <section id="contact" ref={contactRef} className="py-20 bg-gray-50 dark:bg-gray-950">
       <div className="section-container">
-        <h2 className="section-title animate-on-scroll">Get In Touch</h2>
+        <h1 className="section-title animate-on-scroll">Get In Touch</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
             <p className="text-lg mb-6">
-              I&apos;m currently looking for new opportunities to apply my cloud and development skills.&nbsp;
-              Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
+              I'm currently looking for new opportunities to apply my cloud and development skills.
+              Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
 
             <div className="space-y-4 mt-8">
@@ -143,7 +147,8 @@ export default function Contact() {
           </div>
 
           <form onSubmit={handleSubmit} className="animate-on-scroll card p-6 shadow-lg">
-            {submitStatus.message && (<div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {submitStatus.message && (
+              <div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'}`}>
                 {submitStatus.message}
               </div>
             )}
@@ -157,7 +162,7 @@ export default function Contact() {
                 value={formState.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
               />
             </div>
 
@@ -170,7 +175,7 @@ export default function Contact() {
                 value={formState.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
               />
             </div>
 
@@ -183,14 +188,14 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700"
-              ></textarea>
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white resize-none"
+              />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary w-full"
+              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">
