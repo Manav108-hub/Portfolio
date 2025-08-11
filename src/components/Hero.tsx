@@ -53,7 +53,7 @@ export default function Hero() {
             Contact Me
           </Link>
           <Link
-            href="https://drive.usercontent.google.com/download?id=1AkF10ym7Ptm2uJGuQ2qropPF-cL6Xt9g&export=download&authuser=0&confirm=t&uuid=3642788a-efef-411e-b7fe-1de5c6d03f4a&at=ALoNOgk37gtl_VYYu9tYwg_zSrjQ:174688632"
+            href="https://drive.google.com/file/d/1a6BhfHaFaRblWNh3DYyuJR20-S8_AucZ/view?usp=drive_link"
             className="btn-outline"
             download="Manav_Adwani_Resume.pdf"
             style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} // For left alignment
