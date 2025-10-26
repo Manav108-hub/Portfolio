@@ -4,7 +4,8 @@ import { Resend } from 'resend';
 // Update this with your GitHub username
 const GITHUB_USERNAME = process.env.GITHUB_NAME;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function GET() {
   try {
@@ -56,8 +57,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if resend is configured
+    if (!resend) {
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      );
+    }
+
     const fromEmail = `contact@${process.env.NEXT_PUBLIC_DOMAIN}`;
-    
+
     // Send email to yourself (notification)
     const notificationEmail = await resend.emails.send({
       from: fromEmail, // This will be your verified domain
