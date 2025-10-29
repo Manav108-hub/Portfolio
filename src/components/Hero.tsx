@@ -2,11 +2,12 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import profilePic from '../../public/manav_profile.jpg'; // Import your image
-import { Download } from 'lucide-react';
+import profilePic from '../../public/manav_profile.jpg';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const SkillsRing3D = dynamic(() => import('./SkillsRing3D'), { ssr: false });
+const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -34,73 +35,114 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 hero-bg relative overflow-hidden">
-      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center z-10">
+      <AnimatedBackground />
+
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
         <div>
-          <div className="flex items-center gap-8 mb-6 animate-on-scroll">
-            <div className="relative w-24 h-24 rounded-full overflow-hidden">
-              <Image src={profilePic} alt="Hero Profile Picture" layout="fill" objectFit="cover" />
+          {/* Profile Badge */}
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm mb-8 animate-on-scroll">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-400/50">
+              <Image src={profilePic} alt="Profile" layout="fill" objectFit="cover" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">
-              Hi, I&apos;m <span className="gradient-text">Manav Adwani</span>
-            </h1>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-gray-300">Available for opportunities</span>
+            </div>
           </div>
 
-          <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-2xl animate-on-scroll" style={{ animationDelay: '0.2s' }}>
-            Cloud & DevOps Engineer specializing in AWS, Kubernetes, and modern web development.
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-on-scroll leading-tight">
+            Hi, I&apos;m{' '}
+            <span className="gradient-text block mt-2">Manav Adwani</span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-gray-400 max-w-xl leading-relaxed animate-on-scroll" style={{ animationDelay: '0.2s' }}>
+            <span className="text-blue-400 font-semibold">Cloud & DevOps Engineer</span> specializing in{' '}
+            <span className="text-purple-400">AWS</span>,{' '}
+            <span className="text-cyan-400">Kubernetes</span>, and{' '}
+            <span className="text-blue-300">modern web development</span>.
           </p>
 
+          {/* Stats */}
+          <div className="mt-8 flex gap-6 animate-on-scroll" style={{ animationDelay: '0.3s' }}>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400">3+</div>
+              <div className="text-sm text-gray-500">Years Coding</div>
+            </div>
+            <div className="w-px bg-gray-700"></div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-400">10+</div>
+              <div className="text-sm text-gray-500">Projects</div>
+            </div>
+            <div className="w-px bg-gray-700"></div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-cyan-400">5+</div>
+              <div className="text-sm text-gray-500">Technologies</div>
+            </div>
+          </div>
+
           <div className="mt-10 flex flex-wrap gap-4 animate-on-scroll" style={{ animationDelay: '0.4s' }}>
-            <Link href="#projects" className="btn-primary">
-              View Projects
+            <Link href="#projects" className="btn-primary group">
+              <span>View Projects</span>
+              <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
             <Link href="#contact" className="btn-outline">
               Contact Me
             </Link>
             <Link
               href="https://drive.google.com/file/d/1a6BhfHaFaRblWNh3DYyuJR20-S8_AucZ/view?usp=drive_link"
-              className="btn-outline"
-              download="Manav_Adwani_Resume.pdf"
-              style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+              target="_blank"
+              className="btn-outline inline-flex items-center gap-2"
             >
-              <Download className="w-5 h-5 mr-2" style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-              <span style={{ fontSize: '0.8rem' }}>Download Resume</span>
+              <Download className="w-4 h-4" />
+              Resume
             </Link>
           </div>
 
-          <div className="mt-12 flex gap-6 animate-on-scroll" style={{ animationDelay: '0.6s' }}>
-            <Link href="https://github.com/manav108-hub" target="_blank" rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
+          <div className="mt-10 flex gap-4 animate-on-scroll" style={{ animationDelay: '0.5s' }}>
+            <Link
+              href="https://github.com/manav108-hub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800 transition-all hover:-translate-y-1"
+            >
+              <Github className="w-6 h-6 text-gray-400 hover:text-blue-400 transition-colors" />
             </Link>
-            <Link href="https://www.linkedin.com/in/manav-adwani-1146a221b/" target="_blank" rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
+            <Link
+              href="https://www.linkedin.com/in/manav-adwani-1146a221b/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800 transition-all hover:-translate-y-1"
+            >
+              <Linkedin className="w-6 h-6 text-gray-400 hover:text-blue-400 transition-colors" />
             </Link>
-            <Link href="mailto:manavadwani86@gmail.com"
-              className="text-gray-400 hover:text-blue-400 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
+            <Link
+              href="mailto:manavadwani86@gmail.com"
+              className="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800 transition-all hover:-translate-y-1"
+            >
+              <Mail className="w-6 h-6 text-gray-400 hover:text-blue-400 transition-colors" />
             </Link>
           </div>
         </div>
 
         {/* 3D Skills Ring */}
-        <div className="hidden lg:block h-[600px] animate-on-scroll" style={{ animationDelay: '0.3s' }}>
+        <div className="hidden lg:block h-[700px] animate-on-scroll" style={{ animationDelay: '0.3s' }}>
           <SkillsRing3D />
         </div>
       </div>
 
-      {/* Animated background elements */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
-      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style={{ animationDelay: '1s' }}></div>
+      {/* Gradient orbs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-blue-400/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-blue-400 rounded-full mt-2 animate-pulse"></div>
+        </div>
+      </div>
     </section>
   );
 }
