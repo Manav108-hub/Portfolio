@@ -5,6 +5,7 @@ import Image from 'next/image';
 import profilePic from '../../public/manav_profile.jpg';
 import { Download, Github, Linkedin, Mail } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import TypingAnimation from './TypingAnimation';
 
 const SkillsRing3D = dynamic(() => import('./SkillsRing3D'), { ssr: false });
 const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
@@ -52,7 +53,9 @@ export default function Hero() {
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-on-scroll leading-tight">
             Hi, I&apos;m{' '}
-            <span className="gradient-text block mt-2">Manav Adwani</span>
+            <span className="gradient-text block mt-2">
+              <TypingAnimation text="Manav Adwani" speed={120} delay={300} />
+            </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-400 max-w-xl leading-relaxed animate-on-scroll" style={{ animationDelay: '0.2s' }}>

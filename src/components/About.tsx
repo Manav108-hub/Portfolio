@@ -1,5 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+
+const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 
 export default function About() {
@@ -74,8 +77,9 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={aboutRef} className="py-20 bg-gray-900">
-      <div className="section-container">
+    <section id="about" ref={aboutRef} className="py-20 bg-gray-950 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="section-container relative z-10">
         <h2 className="section-title animate-on-scroll">About Me</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -92,10 +96,10 @@ export default function About() {
 
             <h3 className="text-xl font-semibold mt-8 mb-4">Education</h3>
             {education.map((edu, i) => (
-              <div key={i} className="mb-6 card p-5">
-                <p className="font-bold text-lg">{edu.degree}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{edu.school} • {edu.year}</p>
-                <p className="text-gray-700 dark:text-gray-300">{edu.description}</p>
+              <div key={i} className="mb-6 glass-card p-6 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all">
+                <p className="font-bold text-lg text-blue-400">{edu.degree}</p>
+                <p className="text-sm text-gray-400 mb-2">{edu.school} • {edu.year}</p>
+                <p className="text-gray-300">{edu.description}</p>
               </div>
             ))}
           </div>
@@ -110,21 +114,25 @@ export default function About() {
                     <span className="font-medium">{skill.name}</span>
                     <span className="text-sm text-gray-600 dark:text-gray-400">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                  <div className="w-full bg-gray-800/50 border border-gray-700/50 rounded-full h-3 backdrop-blur-sm">
                     <div
-                      className="skill-bar-fill bg-blue-600 h-2.5 rounded-full transition-all duration-1000 ease-out"
+                      className="skill-bar-fill h-3 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
                       data-width={skill.level}
-                      style={{ width: '0%' }}
+                      style={{
+                        width: '0%',
+                        background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
+                        boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)'
+                      }}
                     ></div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <h3 className="text-xl font-semibold mt-8 mb-4">Technologies I Work With</h3>
-            <div className="flex flex-wrap gap-2">
+            <h3 className="text-xl font-semibold mt-8 mb-4 text-blue-400">Technologies I Work With</h3>
+            <div className="flex flex-wrap gap-3">
               {["AWS", "EC2", "S3", "Lambda", "Docker", "Kubernetes", "CI/CD", "React", "Next.js", "Node.js", "TypeScript", "Git"].map((tech) => (
-                <span key={tech} className="skill-badge">
+                <span key={tech} className="px-4 py-2 bg-gray-800/50 border border-blue-500/30 rounded-xl text-sm font-semibold text-blue-300 hover:bg-blue-500/10 hover:border-blue-400/50 hover:scale-105 transition-all duration-300 cursor-default backdrop-blur-sm">
                   {tech}
                 </span>
               ))}

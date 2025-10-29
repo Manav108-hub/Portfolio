@@ -1,6 +1,9 @@
 'use client';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 interface FormState {
   name: string;
@@ -93,8 +96,9 @@ export default function ContactForm() {
   }, []);
 
   return (
-    <section id="contact" ref={contactRef} className="py-20 bg-gray-900">
-      <div className="section-container">
+    <section id="contact" ref={contactRef} className="py-20 bg-gray-950 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="section-container relative z-10">
         <h1 className="section-title animate-on-scroll">Get In Touch</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -146,7 +150,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="animate-on-scroll card p-6 shadow-lg">
+          <form onSubmit={handleSubmit} className="animate-on-scroll glass-card p-8 shadow-2xl border-2 border-blue-500/20">
             {submitStatus.message && (
               <div className={`mb-6 p-4 rounded-lg ${submitStatus.success ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}`}>
                 {submitStatus.message}

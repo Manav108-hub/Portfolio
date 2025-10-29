@@ -1,8 +1,8 @@
+/* Modern Font Imports - Space Grotesk (Headlines) + Inter (Body) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 /* globals.css */
 @import "tailwindcss";
-
-/* Modern Font Imports - Space Grotesk (Headlines) + Inter (Body) */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Custom variables */
 :root {
