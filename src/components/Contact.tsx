@@ -1,9 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-
-const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 interface FormState {
   name: string;
@@ -96,9 +93,8 @@ export default function ContactForm() {
   }, []);
 
   return (
-    <section id="contact" ref={contactRef} className="py-20 bg-gray-950 relative overflow-hidden">
-      <AnimatedBackground />
-      <div className="section-container relative z-10">
+    <section id="contact" ref={contactRef} className="py-20 relative">
+      <div className="section-container">
         <h1 className="section-title animate-on-scroll">Get In Touch</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

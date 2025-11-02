@@ -2,9 +2,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 interface FeaturedProject {
   id: string;
@@ -188,9 +185,8 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" ref={projectsRef} className="py-20 bg-gray-900 relative overflow-hidden">
-      <AnimatedBackground />
-      <div className="section-container relative z-10">
+    <section id="projects" ref={projectsRef} className="py-20 relative">
+      <div className="section-container">
         <div className="text-center mb-12">
           <h2 className="section-title animate-on-scroll inline-block">Featured Projects</h2>
           <p className="mt-4 text-gray-400 max-w-2xl mx-auto animate-on-scroll">

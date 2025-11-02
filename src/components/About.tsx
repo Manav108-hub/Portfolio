@@ -1,8 +1,5 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
-
-const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 
 export default function About() {
@@ -77,9 +74,8 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={aboutRef} className="py-20 bg-gray-950 relative overflow-hidden">
-      <AnimatedBackground />
-      <div className="section-container relative z-10">
+    <section id="about" ref={aboutRef} className="py-20 relative">
+      <div className="section-container">
         <h2 className="section-title animate-on-scroll">About Me</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

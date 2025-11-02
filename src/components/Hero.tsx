@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic';
 import TypingAnimation from './TypingAnimation';
 
 const SkillsRing3D = dynamic(() => import('./SkillsRing3D'), { ssr: false });
-const AnimatedBackground = dynamic(() => import('./AnimatedBackground'), { ssr: false });
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -35,8 +34,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 hero-bg relative overflow-hidden">
-      <AnimatedBackground />
+    <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 relative">
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
         <div>
@@ -134,11 +132,6 @@ export default function Hero() {
           <SkillsRing3D />
         </div>
       </div>
-
-      {/* Gradient orbs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
