@@ -1,0 +1,83 @@
+/**
+ * Portfolio configuration driven by environment variables.
+ *
+ * NOTE: Next.js only inlines `NEXT_PUBLIC_*` variables into the browser bundle
+ * when they are referenced with a literal `process.env.NEXT_PUBLIC_X` access,
+ * so every variable is spelled out below (no dynamic lookups).
+ *
+ * Videos can be a path under /public (e.g. "/assets/videos/libaas.mp4") or any
+ * absolute URL (CDN, S3, ...). Change them in `.env.local` - see `.env.example`.
+ */
+
+export interface ProjectConfig {
+  label: string;
+  title: string;
+  desc: string;
+  tech: string[];
+  /** Demo video shown in the player. */
+  video: string;
+  /** Live website of the project. Empty string = not available yet. */
+  website: string;
+}
+
+export const VIDEO_LIBAAS =
+  process.env.NEXT_PUBLIC_VIDEO_LIBAAS || "/assets/videos/libaas.mp4";
+export const VIDEO_AURENA =
+  process.env.NEXT_PUBLIC_VIDEO_AURENA || "/assets/videos/aurena.mp4";
+export const VIDEO_AI_SPECIES =
+  process.env.NEXT_PUBLIC_VIDEO_AI_SPECIES || "/assets/videos/ai-species.mp4";
+export const VIDEO_SMART_KITCHEN =
+  process.env.NEXT_PUBLIC_VIDEO_SMART_KITCHEN ||
+  "/assets/videos/smart-kitchen.mp4";
+
+export const SITE_LIBAAS = process.env.NEXT_PUBLIC_SITE_LIBAAS || "";
+export const SITE_AURENA = process.env.NEXT_PUBLIC_SITE_AURENA || "";
+export const SITE_AI_SPECIES = process.env.NEXT_PUBLIC_SITE_AI_SPECIES || "";
+export const SITE_SMART_KITCHEN =
+  process.env.NEXT_PUBLIC_SITE_SMART_KITCHEN || "";
+
+export const PROJECTS: ProjectConfig[] = [
+  {
+    label: "Libaas",
+    title: "Pooja's Libaas",
+    video: VIDEO_LIBAAS,
+    website: SITE_LIBAAS,
+    desc: "Dress rental: bookings, availability and PDF invoices.",
+    tech: ["next", "express", "prisma", "aws", "postgres"],
+  },
+  {
+    label: "Aurena",
+    title: "Aurena Fashion",
+    video: VIDEO_AURENA,
+    website: SITE_AURENA,
+    desc: "Fashion store with Razorpay payments and an admin panel.",
+    tech: ["next", "express", "prisma", "razorpay", "aws"],
+  },
+  {
+    label: "AI Species",
+    title: "AI Species Recognition",
+    video: VIDEO_AI_SPECIES,
+    website: SITE_AI_SPECIES,
+    desc: "Image classifier at 90% accuracy, predictions in under 200 ms.",
+    tech: ["python", "tf", "opencv"],
+  },
+  {
+    label: "Kitchen",
+    title: "Smart Kitchen",
+    video: VIDEO_SMART_KITCHEN,
+    website: SITE_SMART_KITCHEN,
+    desc: "Smart Kitchen: a full-stack app with Razorpay payments.",
+    tech: ["next", "vercel", "express", "prisma", "postgres", "razorpay", "aws"],
+  },
+];
+
+/* ---- contact / socials / blog (override via env) ---- */
+export const CONTACT_EMAIL =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL || "manavadwani@gmail.com";
+export const GITHUB_URL =
+  process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/Manav108-hub";
+export const LINKEDIN_URL =
+  process.env.NEXT_PUBLIC_LINKEDIN_URL ||
+  "https://www.linkedin.com/in/manav-r-adwani";
+/** Link of the full blog (Medium, Hashnode, ...). Empty = "All posts" button is dimmed. */
+export const BLOG_URL = process.env.NEXT_PUBLIC_BLOG_URL || "";
