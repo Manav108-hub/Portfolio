@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   title: "Manav R. Adwani",
   description:
     "Portfolio of Manav R. Adwani: full stack, cloud and entrepreneurship. Co-Founder & CTO at Amaippu.",
+  icons: {
+    icon: [
+      { url: "/assets/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
