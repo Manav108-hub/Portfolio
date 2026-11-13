@@ -1,0 +1,8 @@
+<svg width="250" height="73" viewBox="0 0 250 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="contact-dots-pattern-left" width="15" height="18" patternUnits="userSpaceOnUse" x="5" y="8">
+      <circle cx="2" cy="2" r="1.5" fill="#440B17" />
+    </pattern>
+  </defs>
+  <rect width="250" height="73" fill="url(#contact-dots-pattern-left)" />
+</svg>

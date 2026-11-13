@@ -6,7 +6,7 @@ import { PROJECTS } from "@/lib/config";
    Returns a cleanup function so React strict-mode / unmounts leave nothing behind. */
 
 type Dot = { hx: number; hy: number; x: number; y: number; vx: number; vy: number; g: number };
-type Section = { id: string; label: string; sub?: number; y?: number };
+type Section = { id: string; label: string; short?: string; icon?: string; sub?: number; y?: number };
 type PanelCfg = { st: number; nl: number; dots: number[][]; tx: number; tw: number; ta: string; txt: string };
 
 export function initLanding(root: HTMLElement): () => void {
@@ -173,15 +173,52 @@ export function initLanding(root: HTMLElement): () => void {
 
   /* ---- portfolio sections (shared by the hero bar and the sticky bar) ---- */
   const SECS: Section[] = [
-    { id: "about", label: "About me", y: 1100 },
-    { id: "skills", label: "Badges · Skillset", sub: 1, y: 2230 },
-    { id: "projects", label: "Projects", y: 2552 },
-    { id: "journey", label: "Journey", y: JT },
-    { id: "blogs", label: "Blogs", y: BLOGS_TOP },
-    { id: "contact", label: "Contact me", y: CONTACT_TOP },
+    {
+      id: "about",
+      label: "About me",
+      short: "About",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/></svg>',
+      y: 1100,
+    },
+    {
+      id: "skills",
+      label: "Badges · Skillset",
+      short: "Skills",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
+      sub: 1,
+      y: 2230,
+    },
+    {
+      id: "projects",
+      label: "Projects",
+      short: "Projects",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>',
+      y: 2552,
+    },
+    {
+      id: "journey",
+      label: "Journey",
+      short: "Journey",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+      y: JT,
+    },
+    {
+      id: "blogs",
+      label: "Blogs",
+      short: "Blogs",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg>',
+      y: BLOGS_TOP,
+    },
+    {
+      id: "contact",
+      label: "Contact me",
+      short: "Contact",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
+      y: CONTACT_TOP,
+    },
   ];
   const cls = (x: Section) => (x.sub ? "sub " : "") + (x.y == null ? "off" : "");
-  hnav.innerHTML = SECS.map((x) => `<li class="${cls(x)}" data-id="${x.id}"><a href="#${x.id}" tabindex="${x.y == null ? -1 : 0}"><span class="t">${x.label}</span></a></li>`).join("");
+  hnav.innerHTML = SECS.map((x) => `<li class="${cls(x)}" data-id="${x.id}"><a href="#${x.id}" tabindex="${x.y == null ? -1 : 0}" aria-label="${x.label}"><span class="t"><span class="hnav-icon">${x.icon}</span><span class="hnav-label">${x.short || x.label}</span></span></a></li>`).join("");
   vnav.innerHTML = SECS.map((x) => `<li class="${cls(x)}" data-id="${x.id}"><button class="dotb" aria-label="${x.label}" ${x.y == null ? 'aria-disabled="true"' : ""}></button><span class="tip">${x.label}${x.y == null ? " · soon" : ""}</span></li>`).join("");
   const go = (id: string) => {
     const x = SECS.find((z) => z.id === id);
@@ -395,12 +432,12 @@ export function initLanding(root: HTMLElement): () => void {
   const cardsEl = $<HTMLElement>("cards");
 
   // Build SVG circuit track with clean termination at Card 4 (no repeat, no extra loop)
-  const G = '<g id="jG" clip-path="url(#jfc)"><path d="M473 189L346.699 39H139.5H-67.6992L-194 189" fill="none" stroke="#620C29" stroke-width="10"/><path d="M448 201L330.788 64H186.5L177.072 74H138.5H103L93.5721 64H-53.7884L-171 201" fill="none" stroke="#3B3B3B" stroke-width="2"/><path d="M499 178L363.61 14H141.5H-80.6101L-216 178" fill="none" stroke="#3B3B3B" stroke-width="2"/><path d="M163.516 55L175.88 40H106.12L118.484 55H163.516Z" fill="#620C29" stroke="#620C29" stroke-width="2"/><circle cx="79" cy="81" r="5" stroke="#3B3B3B" stroke-width="2" fill="none"/><circle cx="201" cy="81" r="5" stroke="#3B3B3B" stroke-width="2" fill="none"/></g>';
+  const G = '<g id="jG" clip-path="url(#jfc)"><path d="M473 189L346.699 39H139.5H-67.6992L-194 189" fill="none" stroke="#9B0000" stroke-width="10"/><path d="M448 201L330.788 64H186.5L177.072 74H138.5H103L93.5721 64H-53.7884L-171 201" fill="none" stroke="#3B3B3B" stroke-width="2"/><path d="M499 178L363.61 14H141.5H-80.6101L-216 178" fill="none" stroke="#3B3B3B" stroke-width="2"/><path d="M163.516 55L175.88 40H106.12L118.484 55H163.516Z" fill="#9B0000" stroke="#9B0000" stroke-width="2"/><circle cx="79" cy="81" r="5" stroke="#3B3B3B" stroke-width="2" fill="none"/><circle cx="201" cy="81" r="5" stroke="#3B3B3B" stroke-width="2" fill="none"/></g>';
   const termPads = `
     <g id="jTerm">
-      <circle cx="2776" cy="297" r="10" fill="#620C29"/>
+      <circle cx="2776" cy="297" r="10" fill="#9B0000"/>
       <circle cx="2776" cy="297" r="5" fill="#FFF2D0"/>
-      <line x1="2776" y1="282" x2="2776" y2="312" stroke="#620C29" stroke-width="4"/>
+      <line x1="2776" y1="282" x2="2776" y2="312" stroke="#9B0000" stroke-width="4"/>
       <circle cx="2750" cy="322" r="4" stroke="#3B3B3B" stroke-width="2" fill="none"/>
       <circle cx="2750" cy="272" r="4" stroke="#3B3B3B" stroke-width="2" fill="none"/>
     </g>

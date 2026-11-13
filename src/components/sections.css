@@ -57,21 +57,138 @@
 
 /* contact */
 .avail{padding:14px 26px;border-radius:50px;background:rgba(255,242,208,.1);border:1.5px solid rgba(255,242,208,.25);color:var(--cream);font:700 14px/1 var(--ext);letter-spacing:2px;white-space:nowrap}
-.cta{height:120px;width:690px;padding:0 20px 0 40px;border-radius:70px;background:var(--cream);color:var(--ink);display:flex;align-items:center;justify-content:space-between;text-decoration:none;font:700 22px var(--ext);letter-spacing:1.4px;box-shadow:0 20px 40px -18px rgba(0,0,0,.7);transition:translate .4s cubic-bezier(.2,1.4,.4,1),background .3s}
-.cta i{width:80px;height:80px;border-radius:50%;background:var(--wine);color:var(--cream);display:grid;place-items:center;transition:rotate .4s,background .3s}
-.cta svg{width:34px;height:34px}
-.cta:hover{translate:0 -6px;background:#ffd23f}.cta:hover i{rotate:45deg;background:var(--ink)}
-.copy{width:190px;height:120px;border-radius:70px;border:1.5px solid rgba(255,242,208,.5);background:transparent;color:var(--cream);font:700 22px var(--ext);letter-spacing:3px;cursor:pointer;transition:background .3s,color .3s,translate .3s}
-.copy:hover{background:var(--cream);color:var(--ink);translate:0 -6px}
-.socials{list-style:none;margin:0;padding:0;width:470px}
-.socials a{display:flex;justify-content:space-between;align-items:center;padding:30px 4px;border-bottom:1.5px solid rgba(255,242,208,.22);color:var(--cream);text-decoration:none;font:700 30px var(--ext);letter-spacing:3px;transition:padding .35s cubic-bezier(.2,1.4,.4,1),color .3s,border-color .3s}
-.socials li:first-child a{border-top:1.5px solid rgba(255,242,208,.22)}
-.socials svg{width:32px;height:32px;transition:rotate .35s}
-.socials a:hover{padding-left:22px;color:#ffd23f;border-bottom-color:#ffd23f}.socials a:hover svg{rotate:45deg}
-.mq{left:255px;top:830px;width:1605px;height:100px;overflow:hidden;background:var(--ink);display:flex;align-items:center;border-block:2px solid rgba(255,210,63,.5)}
-.mqt{display:flex;white-space:nowrap;animation:mq 40s linear infinite;will-change:transform}
-.mqt span{font:400 58px/1 var(--font-anton),Impact,sans-serif;letter-spacing:8px;color:var(--cream)}
-@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Interactive Bento with smooth hover expansion */
+.contact-bento {
+  position: absolute;
+  display: grid;
+  z-index: 5;
+  transition: width 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              height 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              left 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              top 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              grid-template-columns 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              grid-template-rows 0.45s cubic-bezier(0.2, 1.2, 0.3, 1),
+              gap 0.45s cubic-bezier(0.2, 1.2, 0.3, 1);
+  will-change: width, height, left, top;
+}
+
+.contact-bento.idle {
+  width: 262px;
+  height: 262px;
+  left: 386px;
+  top: 446px;
+  grid-template-columns: 121px 121px;
+  grid-template-rows: 121px 121px;
+  gap: 20px;
+}
+
+.contact-bento.expanded {
+  width: 534px;
+  height: 534px;
+  left: 250px;
+  top: 310px;
+  gap: 30px;
+}
+
+.contact-bento.expanded.hover-phone {
+  grid-template-columns: 383px 121px;
+  grid-template-rows: 383px 121px;
+}
+
+.contact-bento.expanded.hover-email {
+  grid-template-columns: 121px 383px;
+  grid-template-rows: 383px 121px;
+}
+
+.contact-bento.expanded.hover-linkedin {
+  grid-template-columns: 383px 121px;
+  grid-template-rows: 121px 383px;
+}
+
+.contact-bento.expanded.hover-github {
+  grid-template-columns: 121px 383px;
+  grid-template-rows: 121px 383px;
+}
+
+.bento-tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 16px;
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.bento-tile:hover {
+  background: #efefef;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+.bento-tile img {
+  display: block;
+  flex: none;
+  transition: transform 0.35s ease;
+}
+
+.bento-tile-text {
+  margin-top: 24px;
+  font-family: var(--font-montserrat), var(--ext), sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.15;
+  color: #1d0201;
+  text-align: center;
+  white-space: pre-line;
+  letter-spacing: 1.5px;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.35s ease;
+}
+
+.bento-tile.active .bento-tile-text {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  max-height: 140px;
+  transition: opacity 0.35s ease 0.12s, transform 0.35s ease 0.12s, max-height 0.35s ease;
+}
+
+.contact-form{position:absolute;display:flex;flex-direction:column;width:848px}
+.contact-field{position:relative;width:848px;display:flex;flex-direction:column}
+.contact-field-cap{width:848px;height:22px;display:block;flex:none}
+.contact-field-cap.flip{transform:scaleY(-1)}
+.contact-field-body{width:848px;background:#1d0201;padding:0 32px;display:flex;align-items:center}
+.contact-field-body input{width:100%;height:30px;background:transparent;border:0;outline:none;font:400 24px/1 var(--ext);letter-spacing:1.68px;color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;caret-color:#D8D8D8}
+.contact-field-body input::placeholder{color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;opacity:1}
+.contact-field-body input::-webkit-input-placeholder{color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;opacity:1}
+.contact-field-body input::-moz-placeholder{color:#D8D8D8;opacity:1}
+.contact-field-body.area{padding:14px 32px 0;align-items:flex-start}
+.contact-field-body textarea{width:100%;height:270px;background:transparent;border:0;outline:none;resize:none;font:400 24px/1.3 var(--ext);letter-spacing:1.68px;color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;caret-color:#D8D8D8}
+.contact-field-body textarea::placeholder{color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;opacity:1}
+.contact-field-body textarea::-webkit-input-placeholder{color:#D8D8D8;-webkit-text-fill-color:#D8D8D8;opacity:1}
+.contact-field-body textarea::-moz-placeholder{color:#D8D8D8;opacity:1}
+
+.contact-btn{position:relative;width:848px;height:95px;border:0;background:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .25s ease,filter .25s ease}
+.contact-btn>img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.contact-btn-content{position:relative;z-index:2;width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px;box-sizing:border-box}
+.contact-btn-dots{width:180px;height:46px;flex:none;pointer-events:none}
+.contact-btn span{font:700 24px/1 var(--ext);letter-spacing:1.68px;color:#D8D8D8;transition:color .25s ease,text-shadow .25s ease;text-align:center}
+.contact-btn:hover{transform:translateY(-2px);filter:drop-shadow(0 0 16px rgba(186,74,98,.6))}
+.contact-btn:hover span{color:#D8D8D8;text-shadow:0 0 8px rgba(216,216,216,.6)}
+.contact-btn:active{transform:translateY(1px) scale(.99)}
+
 .foot{margin:0;font:700 13px var(--ext);letter-spacing:3px;color:rgba(255,242,208,.6)}
 .totop{padding:0;border:0;background:none;cursor:pointer;transition:color .3s}.totop:hover{color:#ffd23f}
 @media (prefers-reduced-motion:reduce){.mqt,.live,.caret{animation:none}}

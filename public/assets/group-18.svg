@@ -1,11 +1,11 @@
 <svg width="245" height="169" viewBox="0 0 245 169" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<path d="M44.1213 8.74243L200.403 8.7427L244.524 52.8638L244.524 115.26L200.403 159.381L44.1207 159.38L0 115.259L0.000271484 52.8631L44.1213 8.74243Z" fill="#620C29"/>
+<path d="M44.1213 8.74243L200.403 8.7427L244.524 52.8638L244.524 115.26L200.403 159.381L44.1207 159.38L0 115.259L0.000271484 52.8631L44.1213 8.74243Z" fill="#9B0000"/>
 <path d="M65.5067 0L147.766 0.000302995L165.262 17.485L185.058 17.485L223.94 56.2879L223.94 111.163L185.057 149.966L165.934 149.966L147.765 168.123L65.5059 168.123L7.73364 112.126V57.7414L65.5067 0Z" fill="#1D0201"/>
-<rect x="73.3018" width="70.6117" height="168.123" fill="#1D0201"/>
-<rect x="73.3018" width="70.6117" height="168.123" fill="url(#pattern0_155_104)" fill-opacity="0.6"/>
+<rect x="73.3017" width="70.6117" height="168.123" fill="#1D0201"/>
+<rect x="73.3017" width="70.6117" height="168.123" fill="url(#pattern0_146_226)" fill-opacity="0.6"/>
 <defs>
-<pattern id="pattern0_155_104" patternUnits="userSpaceOnUse" patternTransform="matrix(12.6092 0 0 12.6092 73.3018 0)" preserveAspectRatio="none" viewBox="0 0 15 15" width="1" height="1">
-<g id="pattern0_155_104_inner">
+<pattern id="pattern0_146_226" patternUnits="userSpaceOnUse" patternTransform="matrix(12.6092 0 0 12.6092 73.3017 0)" preserveAspectRatio="none" viewBox="0 0 15 15" width="1" height="1">
+<g id="pattern0_146_226_inner">
 <circle cx="7.5" cy="7.5" r="1" fill="white"/>
 </g>
 </pattern></defs>

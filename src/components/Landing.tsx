@@ -81,7 +81,7 @@ export default function Landing() {
               MANAV R.<br />ADWANI
             </h2>
             <p className={`${A} role rv`} style={{ left: 442, top: 1426 }}>
-              FULL STACK<i>|</i>CLOUD<i>|</i>ENTREPRENEURSHIP
+              FULL STACK<i>|</i>CLOUD & DEVOPs<i>|</i>FREELANCER<i>|</i>ENTREPRENEURSHIP
             </p>
             <h3 className={`${A} hl rv`} style={{ left: 930, top: 1290, width: 520 }}>
               More curious<br />than <em>conventional.</em>

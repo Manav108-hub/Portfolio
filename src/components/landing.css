@@ -40,13 +40,18 @@ body{margin:0;position:relative;overflow-x:clip}
 .contact{color:#fff;text-decoration:none;font-size:48px;letter-spacing:3.36px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;text-orientation:upright}
 .soc{height:308px;flex:none}.soc>img{position:absolute;left:40px;top:51px;width:82px;height:206px}
 .soc a{position:absolute;left:0;width:100%;height:50%;border-radius:100px}.soc a:first-of-type{top:0}.soc a:last-of-type{bottom:0}
-.hnav{list-style:none;margin:0;padding:40px 14px;height:100%;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center}
-.hnav li{overflow:hidden;padding:4px 0}
-.hnav a{display:block;color:var(--cream);text-decoration:none;font:14px/1.2 var(--ext);letter-spacing:1.2px;text-align:center;white-space:nowrap}
-.hnav .sub a{font-size:11.5px;opacity:.7}
-.hnav a .t{display:block}
-.hnav .on a,.hnav a:hover{color:#ba4a62;opacity:1}
-.hnav .off a{opacity:.3;cursor:default;pointer-events:none}
+.hnav{list-style:none;margin:0;padding:36px 8px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.hnav li{width:100%;overflow:hidden;padding:2px 0;display:flex;justify-content:center}
+.hnav a{display:flex;flex-direction:column;align-items:center;text-decoration:none;cursor:pointer}
+.hnav a .t{display:flex;flex-direction:column;align-items:center;gap:6px;will-change:transform}
+.hnav-icon{width:46px;height:46px;border-radius:14px;background:rgba(255,242,208,.06);border:1.5px solid rgba(255,242,208,.16);display:grid;place-items:center;color:var(--cream);transition:transform .3s cubic-bezier(.2,1.4,.4,1),background .3s,border-color .3s,box-shadow .3s,color .3s}
+.hnav-icon svg{width:22px;height:22px;display:block}
+.hnav-label{font:700 9.5px/1 var(--ext);letter-spacing:1.5px;color:rgba(255,242,208,.7);text-transform:uppercase;transition:color .3s,text-shadow .3s}
+.hnav a:hover .hnav-icon{transform:translateY(-2px) scale(1.08);background:rgba(186,74,98,.28);border-color:#ffd23f;color:#ffd23f;box-shadow:0 8px 18px rgba(0,0,0,.35),0 0 14px rgba(255,210,63,.3)}
+.hnav a:hover .hnav-label{color:#ffd23f;text-shadow:0 0 8px rgba(255,210,63,.4)}
+.hnav .on .hnav-icon{background:#9B0000;border-color:#ba4a62;color:#ffffff;box-shadow:0 0 16px rgba(155,0,0,.6)}
+.hnav .on .hnav-label{color:#ffffff;font-weight:900}
+.hnav .off a{opacity:.35;cursor:default;pointer-events:none}
 .top{overflow:hidden}
 .cwrap{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .ctext{display:block;pointer-events:auto;color:#fff;text-decoration:none;font-size:48px;letter-spacing:3.36px;writing-mode:vertical-rl;text-orientation:upright}
@@ -115,7 +120,8 @@ body{margin:0;position:relative;overflow-x:clip}
 /* ---------- projects ---------- */
 .tabs{left:296px;top:2571px;display:flex;gap:16px;align-items:flex-start}
 .tab{height:67px;padding:19px 53px 10px;border-radius:50px;background:var(--wine);color:var(--cream);font:32px var(--ext);letter-spacing:2.24px;border:0;cursor:pointer;white-space:nowrap}
-.tab.sm{padding:19px 26px 10px}
+.tab.sm{width:67px;height:67px;padding:19px 0 10px;border-radius:50%;background:#9B0000;color:var(--cream);text-align:center;letter-spacing:0;box-sizing:border-box;transition:background .25s ease,transform .25s ease}
+.tab.sm:hover{background:#b80000;transform:scale(1.05)}
 .cur{position:relative;width:393px;height:78.9px;cursor:default}.cur img{width:393px;height:78.9px}
 .cur span{position:absolute;left:173px;top:38px;transform:translate(-50%,-50%);color:#fff;font-size:32px;letter-spacing:2.24px}
 .vwrap{left:338px;top:2719px;width:945px;height:532px;border-radius:36px;background:#fff;overflow:hidden;cursor:pointer}
