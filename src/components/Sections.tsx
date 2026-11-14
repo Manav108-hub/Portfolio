@@ -1,6 +1,6 @@
 /* Journey, Blogs and Contact screens (each one is a 1920x1080 "screen" on the board). */
 import { useState, type FormEvent } from "react";
-import { POSTS } from "@/lib/content";
+import { POSTS } from "@/lib/constants/blogs";
 import { BLOG_URL, CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/lib/config";
 
 const A = "a";
@@ -32,46 +32,183 @@ export function JourneySection() {
 }
 
 export function BlogsSection() {
-  const [feat, ...rest] = POSTS;
-  const card = (p: (typeof POSTS)[number], style: React.CSSProperties, big = false) => {
-    const live = !!p.href;
-    return (
-      <a
-        key={p.title}
-        className={`${A} post rv${big ? " big" : ""}${live ? "" : " soon"}`}
-        style={style}
-        {...(live ? { href: p.href, target: "_blank", rel: "noopener noreferrer" } : { "aria-disabled": true })}
-      >
-        {big && <span className="pidx" aria-hidden="true">01</span>}
-        <span className="prow"><span className="chip">{p.tag}</span><span className="pmeta">{live ? p.meta : "COMING SOON"}</span></span>
-        <span className="pbody">
-          <strong>{p.title}</strong>
-          <span>{p.excerpt}</span>
-        </span>
-        <span className="prow">
-          <span className="pmeta">{p.meta}</span>
-          <span className="parrow"><Arrow /></span>
-        </span>
-      </a>
-    );
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev > 0 ? prev - 1 : POSTS.length - 1));
   };
+
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev < POSTS.length - 1 ? prev + 1 : 0));
+  };
+
+  const TOP = 33;
+  const TRAVEL = 459 - 93 - 10;
+  const thumbTop = TOP + (POSTS.length > 1 ? (TRAVEL * activeIdx) / (POSTS.length - 1) : 0);
+
   return (
-    <section id="blogs" className="scr" style={{ top: SCREEN_TOPS.blogs }}>
-      <div className={`${A} pnl ink`} />
-      <p className={`${A} eyebrow rv`} style={{ left: 330, top: 100 }}>04 / BLOGS</p>
-      <h2 className={`${A} title rv`} style={{ left: 326, top: 126 }}>THE <i>BLOG</i></h2>
-      <h3 className={`${A} hl rv`} style={{ left: 1230, top: 150, width: 540 }}>
-        Notes from the <em>build log.</em>
-      </h3>
-      <a
-        className={`${A} pillb${BLOG_URL ? "" : " off"}`}
-        style={{ left: 1230, top: 262 }}
-        {...(BLOG_URL ? { href: BLOG_URL, target: "_blank", rel: "noopener noreferrer" } : { "aria-disabled": true })}
-      >
-        <span>ALL POSTS</span><Arrow />
-      </a>
-      {card(feat, { left: 330, top: 360, width: 700, height: 610 }, true)}
-      {rest.map((p, i) => card(p, { left: 1070, top: 360 + i * 320, width: 720, height: 290 }))}
+    <section className="blogs scr" id="blogs" style={{ top: SCREEN_TOPS.blogs }} aria-labelledby="blogs-title">
+      <div className="blog-stage" id="blogs-stage">
+        {/* ======================= PANEL ======================= */}
+        <div className="blog-panel">
+          <svg className="blog-shape" viewBox="0 0 1018 623" aria-hidden="true">
+            <defs>
+              {/* circular cut-out that the vinyl sits in */}
+              <mask id="cut" maskUnits="userSpaceOnUse" x="-900" y="-100" width="2200" height="900">
+                <rect x="-900" y="-100" width="2200" height="900" fill="#fff" />
+                <circle cx="-304" cy="315" r="399" fill="#000" />
+              </mask>
+              <mask id="railMask" maskUnits="userSpaceOnUse" x="-900" y="-100" width="2200" height="900">
+                <rect x="-900" y="-100" width="2200" height="900" fill="#fff" />
+                <circle cx="-304" cy="315" r="445" fill="#000" />
+              </mask>
+            </defs>
+
+            {/* dark body */}
+            <path
+              mask="url(#cut)"
+              fill="#1d0201"
+              d="M50 0H958A60 60 0 0 1 1018 60V473A40 40 0 0 1 978 513H718C690 513 672 520 655 540L598 603A30 30 0 0 1 570 623H50A50 50 0 0 1 0 573V50A50 50 0 0 1 50 0Z"
+            />
+
+            {/* maroon arrow rail (top + bottom halves) */}
+            <g mask="url(#railMask)" fill="#620c29">
+              <rect x="36" y="28" width="144" height="275" rx="20" />
+              <rect x="36" y="325" width="144" height="268" rx="20" />
+            </g>
+          </svg>
+
+          <button
+            className="blog-nav-btn up"
+            id="blog-up"
+            aria-label="Previous post"
+            type="button"
+            onClick={handlePrev}
+          >
+            <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <path d="M12 40 40 12 68 40M40 12V74" stroke="#fff" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button
+            className="blog-nav-btn down"
+            id="blog-down"
+            aria-label="Next post"
+            type="button"
+            onClick={handleNext}
+          >
+            <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <path d="M12 40 40 68 68 40M40 68V6" stroke="#fff" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <div className="blog-dots" aria-hidden="true" />
+
+          <ol className="blog-posts" id="blog-list">
+            {POSTS.map((post, idx) => {
+              const isActive = idx === activeIdx;
+              return (
+                <li
+                  key={post.title + idx}
+                  className={`blog-post ${isActive ? "is-active" : ""}`}
+                  onMouseEnter={() => setActiveIdx(idx)}
+                >
+                  <a
+                    href={post.href || `#post-${idx + 1}`}
+                    target={post.href ? "_blank" : undefined}
+                    rel={post.href ? "noopener noreferrer" : undefined}
+                    onClick={(e) => {
+                      setActiveIdx(idx);
+                      if (!post.href) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    <span className="num">{idx + 1}</span>
+                    <span className="name">{post.title}</span>
+                    <span className="meta">
+                      <time dateTime="2026-01-01">{post.date || "01 Jan 2026"}</time>
+                      <span>{post.tag}</span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+
+          <div className="blog-track" aria-hidden="true" />
+          <div className="blog-thumb" id="blog-thumb" style={{ top: `${thumbTop}px` }} aria-hidden="true" />
+        </div>
+
+        {/* ======================= VINYL ======================= */}
+        <div className="blog-vinyl">
+          <svg viewBox="0 0 706 707" role="img" aria-labelledby="blogs-title">
+            <title id="blogs-title">Blogs</title>
+            <defs>
+              <clipPath id="disc">
+                <circle cx="353.5" cy="353.5" r="328.5" />
+              </clipPath>
+              <pattern
+                id="ellipseDots"
+                patternUnits="userSpaceOnUse"
+                width="15"
+                height="15"
+                patternTransform="matrix(-1 0 0 -1 263.494 320.197)"
+              >
+                <circle cx="7.5" cy="7.5" r="1.15" fill="#ffffff" />
+              </pattern>
+            </defs>
+
+            {/* record */}
+            <circle cx="353.5" cy="353.5" r="328.5" fill="#1d0201" />
+
+            {/* Ellipse 14.svg dotted sector on both opposite sides with bass teeter animation */}
+            <g clipPath="url(#disc)" className="vinyl-bass">
+              {/* Top-right sector */}
+              <g transform="translate(353.5, 33.303)">
+                <path
+                  d="M74.9463 -0.000205303C150.373 17.6543 217.145 61.3691 263.494 123.438L2.87491e-05 320.197L74.9463 -0.000205303Z"
+                  fill="url(#ellipseDots)"
+                  opacity="0.9"
+                />
+              </g>
+              {/* Opposite bottom-left sector */}
+              <g transform="rotate(180 353.5 353.5) translate(353.5, 33.303)">
+                <path
+                  d="M74.9463 -0.000205303C150.373 17.6543 217.145 61.3691 263.494 123.438L2.87491e-05 320.197L74.9463 -0.000205303Z"
+                  fill="url(#ellipseDots)"
+                  opacity="0.9"
+                />
+              </g>
+            </g>
+
+            {/* outer dashed ring + red arcs (rotating) */}
+            <g className="vinyl-rotating-lines">
+              <circle cx="353" cy="353.5" r="352" fill="none" stroke="#620c29" strokeWidth="1.5" strokeDasharray="6 5" />
+              <path d="M22 232A352 352 0 0 1 300 8" fill="none" stroke="#9b0000" strokeWidth="10" strokeLinecap="round" />
+              <path d="M684 478A352 352 0 0 1 640 555" fill="none" stroke="#9b0000" strokeWidth="10" strokeLinecap="round" />
+            </g>
+
+            {/* label */}
+            {/* Ellipse 10.svg: 12-segment dashed ring around the center hub */}
+            <g transform="translate(256.5, 256.5)">
+              <path
+                d="M192.189 84.4615C192.724 88.5652 193 92.7504 193 97C193 101.25 192.724 105.435 192.189 109.538M185.715 60.2524C182.479 52.4478 178.243 45.1627 173.166 38.5567M155.443 20.8336C148.837 15.7573 141.552 11.5209 133.748 8.28452M109.538 1.81142C105.435 1.27613 101.25 1 97 1C92.7504 1 88.5652 1.27613 84.4615 1.81142M60.2524 8.28453C52.4478 11.521 45.1627 15.7573 38.5567 20.8337M20.8336 38.5567C15.7573 45.1627 11.5209 52.4478 8.28452 60.2524M1.81142 84.4615C1.27613 88.5652 1 92.7504 1 97C1 101.25 1.27613 105.435 1.81142 109.538M8.28453 133.748C11.521 141.552 15.7573 148.837 20.8337 155.443M38.5567 173.166C45.1627 178.243 52.4478 182.479 60.2524 185.715M84.4615 192.189C88.5652 192.724 92.7504 193 97 193C101.25 193 105.435 192.724 109.538 192.189M133.748 185.715C141.552 182.479 148.837 178.243 155.443 173.166M173.166 155.443C178.243 148.837 182.479 141.552 185.715 133.748"
+                stroke="#fff2d0"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="none"
+              />
+            </g>
+            <circle cx="353.5" cy="353.5" r="82" fill="#620c29" />
+            <circle cx="353.5" cy="353.5" r="46" fill="#fff2d0" />
+
+            {/* BLOGS title: moved slightly left (x="40" instead of x="55") */}
+            <text className="title" x="40" y="405" textLength="177" lengthAdjust="spacingAndGlyphs">
+              BLOGS
+            </text>
+          </svg>
+        </div>
+      </div>
     </section>
   );
 }

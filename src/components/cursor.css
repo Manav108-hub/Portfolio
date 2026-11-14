@@ -1,0 +1,82 @@
+/* Custom Cursor Styles */
+
+/* Fallback cursor urls for browsers before JS loads or if JS is disabled */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url('/Default-state-cursor.svg') 8 11, auto;
+  }
+  a, button, [role="button"], [role="link"], [role="tab"], input, textarea, select, .tab, .chip, .ctl, .knob, .dotb, .vwrap, .jcard-in, .contact-btn, .totop, .blog-nav-btn {
+    cursor: url('/hover-state-cursor.svg') 26 1, pointer;
+  }
+  a:active, button:active, [role="button"]:active, input:active, textarea:active, .tab:active, .chip:active, .ctl:active, .knob:active, .dotb:active, .jcard-in:active, .contact-btn:active, .totop:active, .blog-nav-btn:active {
+    cursor: url('/clicked-state-cursor.svg') 26 1, pointer;
+  }
+
+  /* When CustomCursor mounts and is active, hide native OS cursor completely */
+  html.has-custom-cursor,
+  html.has-custom-cursor *,
+  html.has-custom-cursor *:hover,
+  html.has-custom-cursor *:active {
+    cursor: none !important;
+  }
+}
+
+/* Floating custom cursor container */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999999;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  filter: drop-shadow(0 2px 5px rgba(29, 2, 1, 0.35));
+}
+
+.custom-cursor.is-visible {
+  opacity: 1;
+}
+
+/* Base cursor icon wrapper */
+.custom-cursor .cursor-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.05s linear;
+}
+
+.custom-cursor .cursor-icon svg {
+  display: block;
+}
+
+/* 1. Default State: arrow cursor */
+.custom-cursor[data-state="default"] .cursor-default {
+  opacity: 1;
+  visibility: visible;
+  /* Tip is at (7.55, 11.02) */
+  transform: translate(-7.55px, -11.02px);
+}
+
+/* 2. Hover State: pointing hand */
+.custom-cursor[data-state="hover"] .cursor-hover {
+  opacity: 1;
+  visibility: visible;
+  /* Index fingertip is at (25.5, 1.1) */
+  transform: translate(-25.5px, -1.1px);
+}
+
+/* 3. Clicked State: compressed/pressed hand */
+.custom-cursor[data-state="clicked"] .cursor-clicked {
+  opacity: 1;
+  visibility: visible;
+  /* Compressed index fingertip is at (25.5, 1.1) */
+  transform: translate(-25.5px, -1.1px);
+}
+

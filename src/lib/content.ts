@@ -31,36 +31,12 @@ export const JOURNEY: Chapter[] = [
   },
 ];
 
-export interface Post {
-  tag: string;
-  title: string;
-  excerpt: string;
-  meta: string;
-  /** Put the real article URL here; empty = shown as "coming soon". */
-  href: string;
-}
-
-export const POSTS: Post[] = [
-  {
-    tag: "FULL STACK",
-    title: "Building a rental platform with Next.js, Prisma & Postgres",
-    excerpt:
-      "Bookings, availability and PDF invoices: the architecture behind Libaas, and the mistakes that shaped it.",
-    meta: "6 MIN READ",
-    href: "",
-  },
-  {
-    tag: "PAYMENTS",
-    title: "Razorpay checkout without the headaches",
-    excerpt: "Webhooks, retries and idempotency for a storefront that never double-charges.",
-    meta: "4 MIN READ",
-    href: "",
-  },
-  {
-    tag: "AI / ML",
-    title: "From 60% to 90%: training a species classifier",
-    excerpt: "Data, augmentation and the tricks that got predictions under 200 ms.",
-    meta: "7 MIN READ",
-    href: "",
-  },
-];
+export {
+  type Post,
+  type BlogPost,
+  POSTS,
+  BLOGS,
+  blogs,
+  posts,
+  BLOG_URL,
+} from "./constants/blogs";

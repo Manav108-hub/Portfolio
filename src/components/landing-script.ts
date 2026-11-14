@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { LOGO } from "@/lib/tech-logos";
-import { PROJECTS } from "@/lib/config";
+import { PROJECTS } from "@/lib/constants/projects";
+import { SKILLS, type Skill } from "@/lib/constants/skills";
 
 /* Imperative behaviour of the landing page.
    Returns a cleanup function so React strict-mode / unmounts leave nothing behind. */
@@ -329,12 +330,11 @@ export function initLanding(root: HTMLElement): () => void {
   /* ---- badges: endless left->right marquee; hover pauses + expands the name ---- */
   const bt = root.querySelector<HTMLElement>("#btrack");
   if (bt) {
-    const SK = ["ts", "react", "next", "node", "express", "prisma", "postgres", "aws", "python", "tf", "opencv", "razorpay", "vercel"] as const;
-    const chipHTML = (k: typeof SK[number]) => {
+    const chipHTML = (k: Skill) => {
       const l = LOGO[k];
       return `<div class="chip" title="${l.n}"><i></i><div class="in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${l.p}"/></svg><b>${l.n}</b></div></div>`;
     };
-    const half = SK.concat(SK).map(chipHTML).join("");
+    const half = SKILLS.concat(SKILLS).map(chipHTML).join("");
     bt.innerHTML = half + half;
     bt.style.setProperty("--w", (bt.offsetWidth / 2) + "px");
 

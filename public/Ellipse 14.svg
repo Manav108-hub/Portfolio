@@ -1,0 +1,8 @@
+<svg width="264" height="321" viewBox="0 0 264 321" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="pattern0_194_201" patternUnits="userSpaceOnUse" width="15" height="15" patternTransform="matrix(-1 0 0 -1 263.494 320.197)">
+      <circle cx="7.5" cy="7.5" r="1.15" fill="white"/>
+    </pattern>
+  </defs>
+  <path d="M74.9463 -0.000205303C150.373 17.6543 217.145 61.3691 263.494 123.438L2.87491e-05 320.197L74.9463 -0.000205303Z" fill="url(#pattern0_194_201)"/>
+</svg>

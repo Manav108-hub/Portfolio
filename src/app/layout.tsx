@@ -3,6 +3,8 @@ import { Alexandria, Anton, Montserrat, Syncopate } from "next/font/google";
 import "./globals.css";
 import "@/components/landing.css";
 import "@/components/sections.css";
+import "@/components/cursor.css";
+import CustomCursor from "@/components/CustomCursor";
 
 const alexandria = Alexandria({ subsets: ["latin"], weight: "900", variable: "--font-alexandria" });
 const anton = Anton({ subsets: ["latin"], weight: "400", variable: "--font-anton" });
@@ -33,7 +35,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
       className={`${alexandria.variable} ${anton.variable} ${montserrat.variable} ${syncopate.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }
