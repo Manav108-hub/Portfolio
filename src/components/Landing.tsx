@@ -32,7 +32,7 @@ export default function Landing() {
                 <div className="pill fill top">
                   <ul className="hnav" id="hnav" />
                   <div className="cwrap">
-                    <a className="ctext" href="mailto:manavadwani@gmail.com">CONTACT</a>
+                    <a className="ctext" href="mailto:manavadwani86@gmail.com">CONTACT</a>
                   </div>
                 </div>
                 <div className="pill bot" id="botPill">
